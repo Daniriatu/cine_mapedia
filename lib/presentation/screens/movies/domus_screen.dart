@@ -1,4 +1,6 @@
+import 'package:cine_mapedia/config/constants/enviroments.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class DomusScreen extends StatelessWidget {
   static const String nomen = "domus-screen";
@@ -7,7 +9,8 @@ class DomusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Placeholder(),
-    );
+        body: Center(
+      child: Text("Cinemapedia"),
+    ));
   }
 }
