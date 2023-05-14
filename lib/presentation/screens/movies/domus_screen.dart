@@ -1,5 +1,4 @@
-import 'package:cine_mapedia/presentation/providers/movies/movies_provider.dart';
-import 'package:cine_mapedia/presentation/widgets/shared/propium_appbar.dart';
+import 'package:cine_mapedia/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +10,8 @@ class DomusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _DomusVisum());
+    return Scaffold(
+        body: _DomusVisum(), bottomNavigationBar: PropriumBottomNavigation());
   }
 }
 
@@ -28,14 +28,25 @@ class _DomusVisumState extends ConsumerState<_DomusVisum> {
   @override
   void initState() {
     super.initState();
+
     ref.read(inPraesensMoviesProvider.notifier).proximaPagina();
   }
 
   @override
   Widget build(BuildContext context) {
-    final praesensMovies = ref.watch(inPraesensMoviesProvider);
+    final inpraesensMovies = ref.watch(inPraesensMoviesProvider);
+    final slideshowMovies = ref.watch(moviesSlidesshowProvider);
+
     return Column(
-      children: [PropriumAppbar(), MoviesSlideshow(movies: praesensMovies)],
+      children: [
+        PropriumAppbar(),
+        MoviesSlideshow(movies: slideshowMovies),
+        MovieHorizontalemListView(
+          movies: inpraesensMovies,
+          titulus: "En Cines",
+          subTitulus: "Lunes 15",
+        )
+      ],
     );
     // ;
   }
