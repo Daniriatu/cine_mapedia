@@ -61,7 +61,7 @@ class _MovieHorizontalemListViewState extends State<MovieHorizontalemListView> {
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
-            return _Slide(movie: widget.movies[index]);
+            return FadeIn(child: _Slide(movie: widget.movies[index]));
           },
         ))
       ]),

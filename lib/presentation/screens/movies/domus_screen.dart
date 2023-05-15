@@ -37,6 +37,10 @@ class _DomusVisumState extends ConsumerState<_DomusVisum> {
 
   @override
   Widget build(BuildContext context) {
+    final initialisLoading = ref.watch(initialisLoadingProvider);
+
+    if (initialisLoading) return const PlenusScreenLoader();
+
     final inpraesensMovies = ref.watch(inPraesensMoviesProvider);
     final slideshowMovies = ref.watch(moviesSlidesshowProvider);
     final popularibusMovies = ref.watch(popularibusMoviesProvider);
