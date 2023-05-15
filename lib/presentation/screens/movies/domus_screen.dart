@@ -30,24 +30,65 @@ class _DomusVisumState extends ConsumerState<_DomusVisum> {
     super.initState();
 
     ref.read(inPraesensMoviesProvider.notifier).proximaPagina();
+    ref.read(popularibusMoviesProvider.notifier).proximaPagina();
+    ref.read(moxMoviesProvider.notifier).proximaPagina();
+    ref.read(maximumPunctaMoviesProvider.notifier).proximaPagina();
   }
 
   @override
   Widget build(BuildContext context) {
     final inpraesensMovies = ref.watch(inPraesensMoviesProvider);
     final slideshowMovies = ref.watch(moviesSlidesshowProvider);
+    final popularibusMovies = ref.watch(popularibusMoviesProvider);
+    final moxMovies = ref.watch(moxMoviesProvider);
+    final maximumPunctaMovies = ref.watch(maximumPunctaMoviesProvider);
 
-    return Column(
-      children: [
-        PropriumAppbar(),
-        MoviesSlideshow(movies: slideshowMovies),
-        MovieHorizontalemListView(
-          movies: inpraesensMovies,
-          titulus: "En Cines",
-          subTitulus: "Lunes 15",
-        )
-      ],
-    );
+    return CustomScrollView(slivers: [
+      const SliverAppBar(
+        floating: true,
+        flexibleSpace: FlexibleSpaceBar(title: PropriumAppbar()),
+      ),
+      SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+        return Column(
+          children: [
+            MoviesSlideshow(movies: slideshowMovies),
+            MovieHorizontalemListView(
+              movies: inpraesensMovies,
+              titulus: "En Cines",
+              subTitulus: "Lunes 15",
+              adProximamPaginam: () =>
+                  ref.read(inPraesensMoviesProvider.notifier).proximaPagina(),
+            ),
+            MovieHorizontalemListView(
+              movies: moxMovies,
+              titulus: "Próximamente",
+              subTitulus: "En este mes",
+              adProximamPaginam: () =>
+                  ref.read(moxMoviesProvider.notifier).proximaPagina(),
+            ),
+            MovieHorizontalemListView(
+              movies: popularibusMovies,
+              titulus: "Populares",
+              subTitulus: "En este mes",
+              adProximamPaginam: () =>
+                  ref.read(popularibusMoviesProvider.notifier).proximaPagina(),
+            ),
+            MovieHorizontalemListView(
+              movies: maximumPunctaMovies,
+              titulus: "Mejor calificadas",
+              subTitulus: "De siempre",
+              adProximamPaginam: () => ref
+                  .read(maximumPunctaMoviesProvider.notifier)
+                  .proximaPagina(),
+            ),
+            const SizedBox(
+              height: 10,
+            )
+          ],
+        );
+      }, childCount: 1))
+    ]);
     // ;
   }
 }

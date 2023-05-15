@@ -11,4 +11,19 @@ class MovieRepositoryImpl extends MoviesRepository {
   Future<List<Movie>> getInPraesens({int pagina = 1}) {
     return datasource.getInPraesens(pagina: pagina);
   }
+
+  @override
+  Future<List<Movie>> getPopularibus({int pagina = 1}) {
+    return datasource.getPopularibus(pagina: pagina);
+  }
+
+  @override
+  Future<List<Movie>> getMaximumPuncta({int pagina = 1}) {
+    return datasource.getMox(pagina: pagina);
+  }
+
+  @override
+  Future<List<Movie>> getMox({int pagina = 1}) {
+    return datasource.getMaximumPuncta(pagina: pagina);
+  }
 }

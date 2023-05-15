@@ -12,17 +12,48 @@ class MoviedbDatasource extends MoviesDatasource {
     'api_key': Enviroment.theMovieDbKey,
     'language': 'es_ES',
   }));
-  @override
-  Future<List<Movie>> getInPraesens({int pagina = 1}) async {
-    // TODO: implement getInPraesens
-    // throw UnimplementedError();
-    final responsio = await dio.get('/movie/now_playing');
-    final movieDBResponse = MovieDbResponse.fromJson(responsio.data);
+
+  List<Movie> _jsonVolviturInMovies(Map<String, dynamic> json) {
+    final movieDBResponse = MovieDbResponse.fromJson(json);
+
     final List<Movie> movies = movieDBResponse.results
         .where((moviedb) => moviedb.posterPath != 'no poster')
         .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
         .toList();
 
     return movies;
+  }
+
+  @override
+  Future<List<Movie>> getInPraesens({int pagina = 1}) async {
+    // throw UnimplementedError();
+    final responsio =
+        await dio.get('/movie/now_playing', queryParameters: {"page": pagina});
+
+    return _jsonVolviturInMovies(responsio.data);
+  }
+
+  @override
+  Future<List<Movie>> getPopularibus({int pagina = 1}) async {
+    final responsio =
+        await dio.get('/movie/popular', queryParameters: {"page": pagina});
+
+    return _jsonVolviturInMovies(responsio.data);
+  }
+
+  @override
+  Future<List<Movie>> getMaximumPuncta({int pagina = 1}) async {
+    final responsio =
+        await dio.get('/movie/upcoming', queryParameters: {"page": pagina});
+
+    return _jsonVolviturInMovies(responsio.data);
+  }
+
+  @override
+  Future<List<Movie>> getMox({int pagina = 1}) async {
+    final responsio =
+        await dio.get('/movie/top_rated', queryParameters: {"page": pagina});
+
+    return _jsonVolviturInMovies(responsio.data);
   }
 }
