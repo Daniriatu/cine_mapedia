@@ -8,4 +8,6 @@ abstract class MoviesRepository {
   Future<List<Movie>> getMox({int pagina = 1});
 
   Future<List<Movie>> getMaximumPuncta({int pagina = 1});
+
+  Future<Movie> getMoviePerId(String id);
 }

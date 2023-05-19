@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cine_mapedia/config/helpers/intelligibilis_forma.dart';
 import 'package:cine_mapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieHorizontalemListView extends StatefulWidget {
   final List<Movie> movies;
@@ -99,7 +100,11 @@ class _Slide extends StatelessWidget {
                     ),
                   );
                 }
-                return FadeIn(child: child);
+                // return FadeIn(child: child);
+                return GestureDetector(
+                  onTap: () => context.push("/movie/${movie.id}"),
+                  child: child,
+                );
               },
             ),
           ),

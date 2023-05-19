@@ -26,4 +26,9 @@ class MovieRepositoryImpl extends MoviesRepository {
   Future<List<Movie>> getMox({int pagina = 1}) {
     return datasource.getMaximumPuncta(pagina: pagina);
   }
+
+  @override
+  Future<Movie> getMoviePerId(String id) {
+    return datasource.getMoviePerId(id);
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:cine_mapedia/domain/entities/movie.dart';
 import 'package:cine_mapedia/infrastructure/models/moviedb/movie_moviedb.dart';
+import 'package:cine_mapedia/infrastructure/models/moviedb/movie_singula.dart';
 
 class MovieMapper {
   static Movie movieDBToEntity(MovieMovieDB moviedb) => Movie(
@@ -21,6 +22,26 @@ class MovieMapper {
           : 'https://www.movienewz.com/img/films/poster-holder.jpg',
       exhibitionemDiem:
           moviedb.releaseDate != null ? moviedb.releaseDate! : DateTime.now(),
+      titulus: moviedb.title,
+      video: moviedb.video,
+      mediocrisValorem: moviedb.voteAverage,
+      summaValorem: moviedb.voteCount);
+
+  static Movie movieSingulaToEntity(MovieSingula moviedb) => Movie(
+      adultus: moviedb.adult,
+      contextusPath: (moviedb.backdropPath != '')
+          ? 'https://image.tmdb.org/t/p/w500${moviedb.backdropPath}'
+          : 'https://sd.keepcalms.com/i-w600/keep-calm-poster-not-found.jpg',
+      genusIds: moviedb.genres.map((e) => e.name).toList(),
+      id: moviedb.id,
+      originaliLingua: moviedb.originalLanguage,
+      originaliTitulus: moviedb.originalTitle,
+      summarium: moviedb.overview,
+      popularis: moviedb.popularity,
+      expositaPath: (moviedb.posterPath != '')
+          ? 'https://image.tmdb.org/t/p/w500${moviedb.posterPath}'
+          : 'https://sd.keepcalms.com/i-w600/keep-calm-poster-not-found.jpg',
+      exhibitionemDiem: moviedb.releaseDate,
       titulus: moviedb.title,
       video: moviedb.video,
       mediocrisValorem: moviedb.voteAverage,
