@@ -10,5 +10,7 @@ abstract class MoviesDatasource {
   Future<List<Movie>> getMaximumPuncta({int pagina = 1});
 
   Future<Movie> getMoviePerId(String id);
+
+  Future<List<Movie>> quaerareMovies(String query);
 }
 //
